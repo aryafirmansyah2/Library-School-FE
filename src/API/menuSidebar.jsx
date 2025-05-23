@@ -32,8 +32,8 @@ const menuSidebar = [
         icon: <MdOutlineRequestQuote className="w-4" />,
       },
       {
-        menu: "Catatan Peminjaman",
-        href: "/catatan-peminjaman",
+        menu: "Peminjaman",
+        href: "/peminjaman",
         type: "link",
         icon: <MdTune className="w-4" />,
       },
