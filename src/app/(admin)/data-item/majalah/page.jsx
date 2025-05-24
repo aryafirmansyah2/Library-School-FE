@@ -13,7 +13,7 @@ const columns = [
   { header: 'Stok', accessor: 'stok' },
 ];
 
-const MataPelajaranPage = () => {
+const MajalahPage = () => {
   const [search, setSearch] = useState('');
 
   const handleEdit = (rowData) => {
@@ -51,4 +51,4 @@ const MataPelajaranPage = () => {
   );
 };
 
-export default MataPelajaranPage;
+export default MajalahPage;
