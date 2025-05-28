@@ -1,19 +1,20 @@
 'use client';
-import dataMataPelajaran from '@/API/dataMataPelajaran';
+
+import dataRiwayatPeminjaman from '@/API/dataRiwayatPeminjaman';
 import InputField from '@/components/Form/InputField';
 import TableDefault from '@/components/Table/TableDefault';
 import React, { useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 
 const columns = [
-  { header: 'Judul', accessor: 'judul' },
-  { header: 'Penulis', accessor: 'penulis' },
-  { header: 'Penerbit', accessor: 'penerbit' },
-  { header: 'Tahun', accessor: 'tahun' },
-  { header: 'Stok', accessor: 'stok' },
+  { header: 'Nama', accessor: 'nama' },
+  { header: 'Buku', accessor: 'buku' },
+  { header: 'Tgl Peminjaman', accessor: 'tglPinjam' },
+  { header: 'Tgl Pengembalian', accessor: 'tglKembali' },
+  { header: 'status', accessor: 'status' },
 ];
 
-const MajalahPage = () => {
+const RiwayatPeminjamanPage = () => {
   const [search, setSearch] = useState('');
 
   const handleEdit = (rowData) => {
@@ -33,22 +34,22 @@ const MajalahPage = () => {
       </div>
       <div className="max-w-80">
         <InputField
-          id={'searchMajalah'}
-          name={'searchMajalah'}
+          id={'searchAnggota'}
+          name={'searchAnggota'}
           type={'text'}
           value={search}
           iconLeft={<IoIosSearch className="text-gray-500" />}
-          placeholder={'Cari Majalah'}
+          placeholder={'Cari Anggota'}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
       <TableDefault
         columns={columns}
-        data={dataMataPelajaran}
+        data={dataRiwayatPeminjaman}
         onActionClick={handleEdit}
       />
     </div>
   );
 };
 
-export default MajalahPage;
+export default RiwayatPeminjamanPage;

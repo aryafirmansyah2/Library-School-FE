@@ -13,7 +13,7 @@ const columns = [
   { header: 'Stok', accessor: 'stok' },
 ];
 
-const MajalahPage = () => {
+const JurnalPage = () => {
   const [search, setSearch] = useState('');
 
   const handleEdit = (rowData) => {
@@ -33,12 +33,12 @@ const MajalahPage = () => {
       </div>
       <div className="max-w-80">
         <InputField
-          id={'searchMajalah'}
-          name={'searchMajalah'}
+          id={'searchJurnal'}
+          name={'searchJurnal'}
           type={'text'}
           value={search}
           iconLeft={<IoIosSearch className="text-gray-500" />}
-          placeholder={'Cari Majalah'}
+          placeholder={'Cari Jurnal'}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
@@ -51,4 +51,4 @@ const MajalahPage = () => {
   );
 };
 
-export default MajalahPage;
+export default JurnalPage;
