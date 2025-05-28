@@ -1,8 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
-import { CiFileOn } from 'react-icons/ci';
-import { GiCancel } from 'react-icons/gi';
-import { formatFileSize } from '@/utils/formatFileSize';
+import React from "react";
+import Link from "next/link";
+import { CiFileOn } from "react-icons/ci";
+import { GiCancel } from "react-icons/gi";
+import { formatFileSize } from "@/utils/formatFileSize";
 
 const InputField = ({
   id,
@@ -57,7 +57,7 @@ const InputField = ({
           )}
 
           {/* special case +62 for tel */}
-          {type === 'tel' && !iconLeft && (
+          {type === "tel" && !iconLeft && (
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
               +62
             </span>
@@ -65,8 +65,8 @@ const InputField = ({
           <input
             id={id}
             name={name}
-            accept={type === 'image' ? 'image/*' : '*'}
-            type={type === 'image' ? 'file' : type}
+            accept={type === "image" ? "image/*" : "*"}
+            type={type === "image" ? "file" : type}
             value={value}
             onChange={onChange}
             placeholder={placeholder}
@@ -75,7 +75,7 @@ const InputField = ({
             disabled={disabled}
             readOnly={readOnly}
             className={`bg-white border-2 border-gray-200 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 ${
-              type == 'tel' || (iconLeft && 'pl-12')
+              (type == "tel" || iconLeft) && "pl-12"
             }`}
           />
           {iconRight && (
@@ -146,7 +146,7 @@ const InputField = ({
           validations.map(
             (validation, index) =>
               (validation.name === name ||
-                (validation.name === 'media_uri' && type === 'image')) && (
+                (validation.name === "media_uri" && type === "image")) && (
                 <p key={index} className="mt-2 text-sm text-red-500">
                   {validation.message}
                 </p>

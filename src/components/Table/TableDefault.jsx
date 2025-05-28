@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const TableDefault = ({
   columns = [],
@@ -6,7 +6,7 @@ const TableDefault = ({
   onActionClick = () => {},
 }) => {
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="relative overflow-x-auto border border-gray-200 sm:rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50">
           <tr>

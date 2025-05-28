@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const request = axios.create({
-  baseURL: `${process.env.NEXT_PUBLIC_HOST}/api/v1`,
+  baseURL: `${process.env.NEXT_PUBLIC_HOST}/api`,
   timeout: 10000,
   headers: {
     // 'Content-Type': 'application/json',
@@ -27,13 +27,13 @@ const responseHandler = (response) => {
   return response;
 };
 
-const expiredTokenHandler = () => {
-  // store.dispatch(getLoginData({}))
-  localStorage.clear();
-  Cookies.remove("token");
-  window.location.href = "/login"; //di uncomment saat sudah integrasi api login
-  // return error;
-};
+// const expiredTokenHandler = () => {
+//   // store.dispatch(getLoginData({}))
+//   localStorage.clear();
+//   Cookies.remove("token");
+//   window.location.href = "/login"; //di uncomment saat sudah integrasi api login
+//   // return error;
+// };
 
 const errorHandler = (error) => {
   if (error.response && error.response.status === 401) {
