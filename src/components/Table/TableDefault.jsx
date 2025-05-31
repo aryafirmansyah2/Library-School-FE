@@ -1,9 +1,8 @@
-import React from "react";
-
 const TableDefault = ({
   columns = [],
   data = [],
-  onActionClick = () => {},
+  onEdit = () => {},
+  onDelete = () => {},
 }) => {
   return (
     <div className="relative overflow-x-auto border border-gray-200 sm:rounded-lg">
@@ -21,35 +20,46 @@ const TableDefault = ({
           </tr>
         </thead>
         <tbody>
-          {data.map((row, rowIndex) => (
-            <tr
-              key={rowIndex}
-              className="odd:bg-white even:bg-gray-50 border-b border-gray-200"
-            >
-              {columns.map((col, colIndex) => (
-                <td
-                  key={colIndex}
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-                >
-                  {row[col.accessor]}
-                </td>
-              ))}
-              <td className="px-6 py-4 space-x-4">
-                <button
-                  className="font-medium text-blue-600 hover:underline"
-                  onClick={() => onActionClick(row)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="font-medium text-red-600 hover:underline"
-                  onClick={() => onActionClick(row)}
-                >
-                  Hapus
-                </button>
+          {data.length === 0 ? (
+            <tr>
+              <td
+                colSpan={columns.length + 1}
+                className="text-center py-6 text-gray-500"
+              >
+                Tidak ada data yang tersedia.
               </td>
             </tr>
-          ))}
+          ) : (
+            data.map((row, rowIndex) => (
+              <tr
+                key={rowIndex}
+                className="odd:bg-white even:bg-gray-50 border-b border-gray-200"
+              >
+                {columns.map((col, colIndex) => (
+                  <td
+                    key={colIndex}
+                    className="px-6 py-4  text-gray-900 whitespace-nowrap"
+                  >
+                    {row[col.accessor]}
+                  </td>
+                ))}
+                <td className="px-6 py-4 space-x-4">
+                  <button
+                    className="font-medium text-blue-600 hover:underline"
+                    onClick={() => onEdit(row)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="font-medium text-red-600 hover:underline"
+                    onClick={() => onDelete(row)}
+                  >
+                    Hapus
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

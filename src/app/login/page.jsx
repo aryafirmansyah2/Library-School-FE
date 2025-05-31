@@ -20,14 +20,7 @@ const formSchema = z.object({
       const isUsername = /^[a-zA-Z0-9_]+$/.test(value);
       return isEmail || isUsername;
     }, "Must be a valid email or username."),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long.")
-    .regex(/[A-Z]/, "Password must contain at least 1 uppercase letter.")
-    .regex(
-      /[!@#$%^&*().]/,
-      "Password must contain at least 1 special character."
-    ),
+  password: z.string().min(3, "Password must be at least 8 characters long."),
 });
 
 export default function LoginPage() {
@@ -88,7 +81,7 @@ export default function LoginPage() {
       .then(function (response) {
         console.log("Success:", response.data);
         if (response.status === 200 || response.status === 201) {
-          Cookies.set("token", response.data.access_token);
+          Cookies.set("token", response.data.accessToken);
           toast.dismiss();
           toast.success("Success Login");
           router.push("/data-item/mata-pelajaran");

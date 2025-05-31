@@ -5,8 +5,8 @@ const request = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_HOST}/api`,
   timeout: 10000,
   headers: {
-    // 'Content-Type': 'application/json',
-    "Content-Type": "application/json, multipart/form-data",
+    "Content-Type": "application/json",
+    // "Content-Type": "application/json, multipart/form-data",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "*",
     "Access-Control-Allow-Methods": "*",
@@ -37,7 +37,7 @@ const responseHandler = (response) => {
 
 const errorHandler = (error) => {
   if (error.response && error.response.status === 401) {
-    expiredTokenHandler();
+    // expiredTokenHandler();
   } else if (error.code === "ERR_NETWORK") {
     window.history.pushState({}, "Redirect Network Error", "/login");
     console.log(error);
@@ -48,6 +48,14 @@ const errorHandler = (error) => {
 
   // Tambahkan ini agar error bisa tertangkap di .catch()
   return Promise.reject(error);
+};
+
+const buildMultipart = (data) => {
+  const formData = new FormData();
+  Object.entries(data).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+  return formData;
 };
 
 request.interceptors.request.use(
@@ -66,7 +74,31 @@ export default {
     request({ method: "get", url, params, headers }),
   post: (url, data, headers = {}) =>
     request({ method: "post", url, data, headers }),
+  postMultipart: (url, data, headers = {}) => {
+    const formData = buildMultipart(data);
+    return request({
+      method: "post",
+      url,
+      data: formData,
+      headers: {
+        ...headers,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
   put: (url, data, headers) => request({ method: "put", url, data, headers }),
+  putMultipart: (url, data, headers = {}) => {
+    const formData = buildMultipart(data);
+    return request({
+      method: "put",
+      url,
+      data: formData,
+      headers: {
+        ...headers,
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
   patch: (url, data, headers) =>
     request({ method: "patch", url, data, headers }),
   delete: (url, data) => request({ method: "delete", url, data }),

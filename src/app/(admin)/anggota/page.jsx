@@ -1,23 +1,60 @@
-'use client';
-
-import dataAnggota from '@/API/dataAnggota';
-import InputField from '@/components/Form/InputField';
-import TableDefault from '@/components/Table/TableDefault';
-import React, { useState } from 'react';
-import { IoIosSearch } from 'react-icons/io';
+"use client";
+import InputField from "@/components/Form/InputField";
+import TableDefault from "@/components/Table/TableDefault";
+import request from "@/utils/request";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React, { useCallback, useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
+import { IoIosSearch } from "react-icons/io";
 
 const columns = [
-  { header: 'Nama', accessor: 'nama' },
-  { header: 'Email', accessor: 'email' },
-  { header: 'No. Telpon', accessor: 'no_tlp' },
-  { header: 'Kelas', accessor: 'kelas' },
+  { header: "Nama Depan", accessor: "namaDepan" },
+  { header: "Nama Belakang", accessor: "namaBelakang" },
+  { header: "Email", accessor: "email" },
+  { header: "No. Telpon", accessor: "noHp" },
+  { header: "Kelas", accessor: "kelas" },
 ];
 
 const AnggotaPage = () => {
-  const [search, setSearch] = useState('');
+  const router = useRouter();
+  const [search, setSearch] = useState("");
+  const [dataAnggota, seDataAnggota] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchUsers = useCallback(async () => {
+    try {
+      const response = await request.get(`/users`);
+      seDataAnggota(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const handleEdit = (rowData) => {
-    alert('Edit: ' + rowData.product);
+    router.push(`/anggota/${rowData.id}`);
+  };
+
+  const handleDelete = async (rowData) => {
+    // const confirmed = confirm(
+    //   `Apakah Anda yakin ingin menghapus buku "${rowData.judul}"?`
+    // );
+    // if (!confirmed) return;
+
+    try {
+      await request.delete(`/users/${rowData.id}`);
+      // alert("Buku berhasil dihapus.");
+      fetchUsers(); // Refresh data
+    } catch (error) {
+      console.error("Gagal menghapus data:", error);
+      alert("Terjadi kesalahan saat menghapus data.");
+    }
   };
 
   return (
@@ -28,24 +65,25 @@ const AnggotaPage = () => {
         </h1>
         <p className="mt-4 max-w-[476px]">
           Silahkan melihat koleksi buku, majalah, dan jurnal milik kami dan
-          kalian bisa pinjam{' '}
+          kalian bisa pinjam{" "}
         </p>
       </div>
       <div className="max-w-80">
         <InputField
-          id={'searchAnggota'}
-          name={'searchAnggota'}
-          type={'text'}
+          id={"searchAnggota"}
+          name={"searchAnggota"}
+          type={"text"}
           value={search}
           iconLeft={<IoIosSearch className="text-gray-500" />}
-          placeholder={'Cari Anggota'}
+          placeholder={"Cari Anggota"}
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
       <TableDefault
         columns={columns}
         data={dataAnggota}
-        onActionClick={handleEdit}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
       />
     </div>
   );

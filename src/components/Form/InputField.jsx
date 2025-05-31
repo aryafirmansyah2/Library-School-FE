@@ -31,7 +31,7 @@ const InputField = ({
         <div className="flex justify-between">
           <label
             htmlFor={id}
-            className="block mb-2 text-sm font-medium text-gray-900"
+            className="block text-sm font-medium leading-6 text-gray-900"
           >
             {label}
           </label>
@@ -47,7 +47,7 @@ const InputField = ({
         </div>
       )}
 
-      <div className="relative w-full">
+      <div className="relative w-full mt-2">
         <div className="relative w-full">
           {/* iconLeft */}
           {iconLeft && (
@@ -74,8 +74,8 @@ const InputField = ({
             required={required}
             disabled={disabled}
             readOnly={readOnly}
-            className={`bg-white border-2 border-gray-200 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 ${
-              (type == "tel" || iconLeft) && "pl-12"
+            className={`block w-full rounded-md bg-white px-3 py-1.5 text-gray-900 shadow-sm outline outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-blue-600 sm:text-sm ${
+              (type == "tel" && "pl-12") || (iconLeft != null && "pl-12")
             }`}
           />
           {iconRight && (
