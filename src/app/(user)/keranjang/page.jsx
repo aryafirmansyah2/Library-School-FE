@@ -37,7 +37,7 @@ const KeranjangPage = () => {
       return;
     }
 
-    const userId = Cookies.get("idUser"); // bisa diubah sesuai autentikasi yang Anda miliki
+    const userId = Cookies.get("idUser");
     const bukuList = cartItems.map((item) => ({
       bukuId: item.id,
       jumlah: item.jumlah,
@@ -54,8 +54,6 @@ const KeranjangPage = () => {
       if (response.status === 200 || response.status === 201) {
         toast.dismiss();
         toast.success("Peminjaman berhasil");
-
-        // Kosongkan keranjang setelah berhasil
         setCartItems([]);
         localStorage.removeItem("cart");
       } else {
@@ -74,68 +72,61 @@ const KeranjangPage = () => {
   return (
     <>
       <Toaster position="top-center" />
-      <div className="bg-white w-full p-10 rounded-xl border border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl">
+      <div className="bg-white w-full p-4 sm:p-6 md:p-10 rounded-xl border border-gray-200 max-w-7xl mx-auto">
+        <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl mb-6">
           Shopping Cart
         </h2>
 
-        <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
-          <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
-            <div className="space-y-6">
-              {cartItems.length === 0 ? (
-                <p className="text-gray-500">Keranjang kosong.</p>
-              ) : (
-                cartItems.map((item) => (
-                  <div
-                    key={item.id}
-                    className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6"
-                  >
-                    <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                      <div className="space-y-4 md:flex md:items-center md:gap-6 md:space-y-0">
-                        <a href="#" className="shrink-0 md:order-1 w-32">
-                          <div className="aspect-[14/16] w-full overflow-hidden rounded-md bg-gray-100">
-                            <img
-                              className="h-full w-full object-cover"
-                              src={pathImage(item?.cover)}
-                              alt={item.judul}
-                            />
-                          </div>
-                        </a>
-
-                        <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                          <p className="text-base font-medium text-gray-900">
-                            {item.judul}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {item.penulis}
-                          </p>
-                          <div className="flex items-center gap-4">
-                            <button
-                              type="button"
-                              onClick={() => handleRemove(item.id)}
-                              className="inline-flex items-center text-sm font-medium text-red-600 hover:underline"
-                            >
-                              ❌ Remove
-                            </button>
-                          </div>
-                        </div>
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Cart Items */}
+          <div className="w-full lg:w-2/3 space-y-6">
+            {cartItems.length === 0 ? (
+              <p className="text-gray-500">Keranjang kosong.</p>
+            ) : (
+              cartItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
+                >
+                  <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+                    <div className="space-y-4 md:flex md:items-center md:gap-6 md:space-y-0">
+                      <div className="w-24 h-28 shrink-0 overflow-hidden rounded-md bg-gray-100">
+                        <img
+                          className="w-full h-full object-cover"
+                          src={pathImage(item?.cover)}
+                          alt={item.judul}
+                        />
                       </div>
 
-                      <div className="flex items-center justify-between md:order-3 md:justify-end">
-                        <div className="text-sm text-gray-900">
-                          x{item.jumlah}
-                        </div>
+                      <div className="w-full flex-1 space-y-2">
+                        <p className="text-base font-medium text-gray-900">
+                          {item.judul}
+                        </p>
+                        <p className="text-sm text-gray-500">{item.penulis}</p>
+                        <button
+                          type="button"
+                          onClick={() => handleRemove(item.id)}
+                          className="inline-flex items-center text-sm font-medium text-red-600 hover:underline"
+                        >
+                          ❌ Remove
+                        </button>
                       </div>
                     </div>
+
+                    <div className="flex items-center justify-between md:justify-end">
+                      <span className="text-sm text-gray-900">
+                        x{item.jumlah}
+                      </span>
+                    </div>
                   </div>
-                ))
-              )}
-            </div>
+                </div>
+              ))
+            )}
           </div>
 
           {/* Order Summary */}
-          <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
-            <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+          <div className="w-full lg:w-1/3 space-y-6">
+            <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
               <p className="text-xl font-semibold text-gray-900">
                 Order summary
               </p>
@@ -146,13 +137,8 @@ const KeranjangPage = () => {
                     .reduce((acc, item) => acc + item.jumlah, 0);
 
                   return (
-                    <dl
-                      key={idx}
-                      className="flex items-center justify-between gap-4"
-                    >
-                      <dt className="text-base font-normal text-gray-500">
-                        {label}
-                      </dt>
+                    <dl key={idx} className="flex items-center justify-between">
+                      <dt className="text-base text-gray-500">{label}</dt>
                       <dd className="text-base font-medium text-gray-900">
                         {jumlah}
                       </dd>
@@ -160,7 +146,7 @@ const KeranjangPage = () => {
                   );
                 })}
 
-                <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2">
+                <dl className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <dt className="text-base font-bold text-gray-900">Total</dt>
                   <dd className="text-base font-bold text-gray-900">
                     {getTotal()}
@@ -170,16 +156,16 @@ const KeranjangPage = () => {
 
               <button
                 onClick={handlePeminjaman}
-                className="flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
               >
                 Proceed to Checkout
               </button>
 
               <div className="flex items-center justify-center gap-2">
-                <span className="text-sm font-normal text-gray-500">or</span>
+                <span className="text-sm text-gray-500">or</span>
                 <a
                   href="#"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-blue-700 underline hover:no-underline"
+                  className="inline-flex items-center gap-1 text-sm text-blue-700 underline hover:no-underline"
                 >
                   Continue Shopping
                   <svg
