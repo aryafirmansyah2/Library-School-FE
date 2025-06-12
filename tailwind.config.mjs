@@ -1,3 +1,5 @@
+import lineClamp from "@tailwindcss/line-clamp";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: false,
@@ -14,5 +16,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [lineClamp],
 };

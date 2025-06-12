@@ -25,7 +25,10 @@ const AnggotaPage = () => {
   const fetchUsers = useCallback(async () => {
     try {
       const response = await request.get(`/users`);
-      seDataAnggota(response.data);
+      const filteredUsers = response.data.filter(
+        (user) => user.role === "USER"
+      );
+      seDataAnggota(filteredUsers);
     } catch (error) {
       console.error(error);
     } finally {

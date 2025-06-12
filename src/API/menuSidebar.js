@@ -34,13 +34,13 @@ const menuSidebar = [
         type: "link",
         icon: <MdTune className="w-4" />,
       },
-      {
-        role: "ADMIN",
-        menu: "Setting",
-        type: "dropdown",
-        icon: <MdInsights className="w-4" />,
-        subMenu: [{ menu: "Profile", href: "/setting/profile" }],
-      },
+      // {
+      //   role: "ADMIN",
+      //   menu: "Setting",
+      //   type: "dropdown",
+      //   icon: <MdInsights className="w-4" />,
+      //   subMenu: [{ menu: "Profile", href: "/setting/profile" }],
+      // },
       {
         role: "USER",
         menu: "Beranda",
@@ -73,13 +73,13 @@ const menuSidebar = [
         href: "/riwayat-peminjaman",
         icon: <BiHistory className="w-4" />,
       },
-      {
-        role: "USER",
-        menu: "Setting",
-        type: "dropdown",
-        icon: <BsGear className="w-4" />,
-        subMenu: [{ menu: "Profile", href: "/profile" }],
-      },
+      // {
+      //   role: "USER",
+      //   menu: "Setting",
+      //   type: "dropdown",
+      //   icon: <BsGear className="w-4" />,
+      //   subMenu: [{ menu: "Profile", href: "/profile" }],
+      // },
     ],
   },
 ];

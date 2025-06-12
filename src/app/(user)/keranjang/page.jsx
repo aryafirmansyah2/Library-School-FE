@@ -1,6 +1,7 @@
 "use client";
 import { pathImage } from "@/utils/pathImage";
 import request from "@/utils/request";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 

@@ -5,7 +5,9 @@ import Link from "next/link";
 export default function CardBook({
   image = "https://images.unsplash.com/photo-1540553016722-983e48a2cd10?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
   title = "Website Review Check",
-  description = 'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona.',
+  description = `This charming accommodation is situated just a 2-minute walk from Barceloneta Beach and the nearest bus stop. 
+  It offers a cozy and welcoming environment, perfect for both short and long stays. With easy access to the city's vibrant nightlife at "Naviglio", 
+  you’ll find everything you need for a memorable visit to Barcelona. Enjoy nearby cafés, seafood restaurants, and scenic coastal walks right at your doorstep.`,
   href = "#",
 }) {
   return (
@@ -19,7 +21,7 @@ export default function CardBook({
       </div>
       <div className="p-4">
         <h6 className="mb-2 text-slate-800 text-xl font-semibold">{title}</h6>
-        <p className="text-slate-600 leading-normal font-light">
+        <p className="text-slate-600 leading-relaxed font-light line-clamp-4">
           {description}
         </p>
       </div>
