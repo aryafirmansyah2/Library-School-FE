@@ -27,17 +27,17 @@ const responseHandler = (response) => {
   return response;
 };
 
-// const expiredTokenHandler = () => {
-//   // store.dispatch(getLoginData({}))
-//   localStorage.clear();
-//   Cookies.remove("token");
-//   window.location.href = "/login"; //di uncomment saat sudah integrasi api login
-//   // return error;
-// };
+const expiredTokenHandler = () => {
+  // store.dispatch(getLoginData({}))
+  localStorage.clear();
+  Cookies.remove("token");
+  window.location.href = "/login"; //di uncomment saat sudah integrasi api login
+  // return error;
+};
 
 const errorHandler = (error) => {
   if (error.response && error.response.status === 401) {
-    // expiredTokenHandler();
+    expiredTokenHandler();
   } else if (error.code === "ERR_NETWORK") {
     window.history.pushState({}, "Redirect Network Error", "/login");
     console.log(error);

@@ -61,6 +61,18 @@ const MajalahPage = () => {
     );
   };
 
+  const handleSearch = async (keyword) => {
+    setLoading(true); // optional: aktifkan loading saat mencari
+    try {
+      const response = await request.get(`/jurnal?keyword=${keyword}`);
+      setDataMajalah(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Toaster position="top-center" />
@@ -75,17 +87,26 @@ const MajalahPage = () => {
           </p>
         </div>
         <div className="flex items-center justify-between flex-wrap gap-4">
-          <div className="max-w-80 w-full">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault(); // mencegah reload halaman
+              handleSearch(search);
+            }}
+            className="max-w-80 w-full"
+          >
             <InputField
-              id={"searchMajalah"}
-              name={"searchMajalah"}
+              id={"searchMataPelajaran"}
+              name={"searchMataPelajaran"}
               type={"text"}
               value={search}
               iconLeft={<IoIosSearch className="text-gray-500" />}
-              placeholder={"Cari Majalah"}
+              placeholder={"Cari Mata Pelajaran"}
               onChange={(e) => setSearch(e.target.value)}
             />
-          </div>
+            <button type="submit" className="hidden">
+              search
+            </button>
+          </form>
           <Link
             href={"/data-item/majalah/create"}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"

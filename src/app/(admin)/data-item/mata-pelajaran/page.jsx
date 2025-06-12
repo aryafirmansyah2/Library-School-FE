@@ -61,6 +61,18 @@ const MataPelajaranPage = () => {
     );
   };
 
+  const handleSearch = async (keyword) => {
+    setLoading(true); // optional: aktifkan loading saat mencari
+    try {
+      const response = await request.get(`/buku-pelajaran?keyword=${keyword}`);
+      setDataMataPelajaran(response.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   console.log(dataMataPelajaran);
 
   return (
@@ -77,7 +89,13 @@ const MataPelajaranPage = () => {
           </p>
         </div>
         <div className="flex items-center justify-between flex-wrap gap-4">
-          <div className="max-w-80 w-full">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault(); // mencegah reload halaman
+              handleSearch(search);
+            }}
+            className="max-w-80 w-full"
+          >
             <InputField
               id={"searchMataPelajaran"}
               name={"searchMataPelajaran"}
@@ -87,7 +105,10 @@ const MataPelajaranPage = () => {
               placeholder={"Cari Mata Pelajaran"}
               onChange={(e) => setSearch(e.target.value)}
             />
-          </div>
+            <button type="submit" className="hidden">
+              search
+            </button>
+          </form>
           <Link
             href={"/data-item/mata-pelajaran/create"}
             className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"

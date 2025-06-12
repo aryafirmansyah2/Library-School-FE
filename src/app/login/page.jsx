@@ -70,21 +70,23 @@ export default function LoginPage() {
     }
 
     request
-      .post(
-        "/auth/login",
-        {
-          email: formData.email,
-          password: formData.password,
-        },
-        { "Content-Type": "application/json" }
-      )
+      .post("/auth/login", {
+        email: formData.email,
+        password: formData.password,
+      })
       .then(function (response) {
         console.log("Success:", response.data);
         if (response.status === 200 || response.status === 201) {
           Cookies.set("token", response.data.accessToken);
+          Cookies.set("role", response?.data?.user?.role);
+          Cookies.set("idUser", response?.data?.userId);
           toast.dismiss();
           toast.success("Success Login");
-          router.push("/data-item/mata-pelajaran");
+          if (response?.data?.user?.role == "ADMIN") {
+            router.push("/data-item/mata-pelajaran");
+          } else {
+            router.push("/beranda");
+          }
         } else {
           toast.dismiss();
           toast.error("Failed to login. Please try again.");
