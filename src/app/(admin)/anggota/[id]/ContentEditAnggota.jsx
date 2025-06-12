@@ -139,7 +139,6 @@ const ContentEditAnggota = ({ id }) => {
       <div className="flex flex-col gap-8 bg-white w-full p-10 rounded-xl border border-gray-200">
         <div>
           <h1 className="text-3xl font-bold">Edit Anggota</h1>
-          <p className="mt-4">Ini halaman update anggota.</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -177,7 +176,7 @@ const ContentEditAnggota = ({ id }) => {
                     id="kelas"
                     name="kelas"
                     type="text"
-                    label="kelas"
+                    label="Kelas"
                     value={formData.kelas}
                     onChange={handleChange}
                     validations={validations}

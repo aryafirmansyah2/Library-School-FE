@@ -74,7 +74,7 @@ const KeranjangPage = () => {
       <Toaster position="top-center" />
       <div className="bg-white w-full p-4 sm:p-6 md:p-10 rounded-xl border border-gray-200 max-w-7xl mx-auto">
         <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl mb-6">
-          Shopping Cart
+          Keranjang Buku
         </h2>
 
         <div className="flex flex-col lg:flex-row gap-6">
@@ -164,10 +164,10 @@ const KeranjangPage = () => {
               <div className="flex items-center justify-center gap-2">
                 <span className="text-sm text-gray-500">or</span>
                 <a
-                  href="#"
+                  href="/buku/mata-pelajaran"
                   className="inline-flex items-center gap-1 text-sm text-blue-700 underline hover:no-underline"
                 >
-                  Continue Shopping
+                  Jelajahi Buku
                   <svg
                     className="h-5 w-5"
                     xmlns="http://www.w3.org/2000/svg"

@@ -179,7 +179,6 @@ const ContentEditMajalah = ({ id }) => {
       <div className="flex flex-col gap-8 bg-white w-full p-10 rounded-xl border border-gray-200">
         <div>
           <h1 className="text-3xl font-bold">Edit Majalah</h1>
-          <p className="mt-4">Ini halaman update majalah.</p>
         </div>
 
         <form onSubmit={handleSubmit}>

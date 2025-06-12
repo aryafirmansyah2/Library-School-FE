@@ -47,7 +47,7 @@ const MataPelajaranPage = () => {
           Selamat Datang di Digital Library!
         </h1>
         <p className="mt-4 max-w-[476px]">
-          Silahkan melihat koleksi buku, majalah, dan jurnal milik kami dan
+          Silahkan melihat koleksi buku, majalah, dan jurnal milik kami yang
           kalian bisa pinjam{" "}
         </p>
       </div>

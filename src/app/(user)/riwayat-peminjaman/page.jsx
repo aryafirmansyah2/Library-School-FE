@@ -1,106 +1,70 @@
-import { pathImage } from "@/utils/pathImage";
-import Image from "next/image";
-import React from "react";
+"use client";
 
-const orders = [
-  {
-    id: 1,
-    buku: {
-      id: 3,
-      judul: "Aktif dan Kreatif Belajar Fisika",
-      penulis: "Wawan Purnama",
-      penerbit: "Grafindo",
-      tahunTerbit: "2013",
-      deskripsi:
-        "Buku Pelajaran tentan fisika untuk Sekolah Menengah Atas/Madrasah Aliyah kelas XI Peminatan Matematika dan Ilmu-Ilmu Alam",
-      cover: "/uploads/jurnal/1748858245819_decor1.png",
-      halaman: 105,
-      jumlah: 9,
-      available: true,
-      edisi: "test",
-      frekuensiTerbit: "test",
-      bidang: "test",
-      volume: "test",
-    },
-    user: {
-      id: 1,
-      namaDepan: "Arya",
-      namaBelakang: "Firmansyah",
-      kelas: "12-MIPA-A",
-      noHp: "012345678910",
-      email: "arya123@gmail.com",
-      password: "$2a$10$FlRquhhMQbY8NNXlqzeMOeV/ulAv3hj2Usz9c/.EPhopDv8SevXvi",
-      role: "USER",
-    },
-    tanggalPeminjaman: "2025-06-12",
-    tanggalPengembalian: "2025-06-19",
-    sudahDikembalikan: false,
-  },
-  {
-    id: 2,
-    buku: {
-      id: 1,
-      judul: "Aktif dan Kreatif Belajar Fisika",
-      penulis: "Wawan Purnama",
-      penerbit: "Grafindo",
-      tahunTerbit: "2013",
-      deskripsi:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n",
-      cover: "/uploads/buku_pelajaran/1748853606659_decor1.png",
-      halaman: 105,
-      jumlah: 9,
-      available: true,
-      maPel: "Fisika",
-      tingkatKelas: "11",
-      kurikulum: "Kurikulum 2013",
-    },
-    user: {
-      id: 1,
-      namaDepan: "Arya",
-      namaBelakang: "Firmansyah",
-      kelas: "12-MIPA-A",
-      noHp: "012345678910",
-      email: "arya123@gmail.com",
-      password: "$2a$10$FlRquhhMQbY8NNXlqzeMOeV/ulAv3hj2Usz9c/.EPhopDv8SevXvi",
-      role: "USER",
-    },
-    tanggalPeminjaman: "2025-06-12",
-    tanggalPengembalian: "2025-06-19",
-    sudahDikembalikan: false,
-  },
-];
+import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
+
+import Cookies from "js-cookie";
+import { pathImage } from "@/utils/pathImage";
+import request from "@/utils/request";
 
 export default function RiwayatPeminjamanPage() {
-  return (
-    <>
-      <div className="bg-white w-full p-10 rounded-xl border border-gray-200">
-        <h2 className="text-center font-manrope font-semibold text-4xl text-black mb-16">
-          Order History
-        </h2>
-        <div className="grid grid-cols-10 pb-9">
-          <div className="col-span-10 lg:col-span-4">
-            <p className="font-medium text-lg leading-8 text-indigo-600">
-              Buku
-            </p>
-          </div>
-          <div className="col-span-2 max-lg:hidden">
-            <p className="font-medium text-lg leading-8 text-gray-600 text-center">
-              Tanggal Pinjam
-            </p>
-          </div>
-          <div className="col-span-2 max-lg:hidden">
-            <p className="font-medium text-lg leading-8 text-gray-500 text-center">
-              Tanggal Kembali
-            </p>
-          </div>
-          <div className="col-span-2 max-lg:hidden">
-            <p className="font-medium text-lg leading-8 text-gray-500 text-center">
-              Status
-            </p>
-          </div>
-        </div>
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-        {orders.map((order) => (
+  const fetchRiwayat = useCallback(async () => {
+    try {
+      const userId = Cookies.get("idUser");
+      if (!userId) return;
+
+      const response = await request.get(`/riwayat-peminjaman/user/${userId}`);
+      setOrders(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Gagal memuat data riwayat:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchRiwayat();
+  }, [fetchRiwayat]);
+
+  return (
+    <div className="bg-white w-full p-10 rounded-xl border border-gray-200">
+      <h2 className="text-center font-manrope font-semibold text-4xl text-black mb-16">
+        Riwayat Peminjaman
+      </h2>
+
+      <div className="grid grid-cols-10 pb-9">
+        <div className="col-span-10 lg:col-span-4">
+          <p className="font-medium text-lg leading-8 text-indigo-600">Buku</p>
+        </div>
+        <div className="col-span-2 max-lg:hidden">
+          <p className="font-medium text-lg leading-8 text-gray-600 text-center">
+            Tanggal Pinjam
+          </p>
+        </div>
+        <div className="col-span-2 max-lg:hidden">
+          <p className="font-medium text-lg leading-8 text-gray-500 text-center">
+            Tanggal Kembali
+          </p>
+        </div>
+        <div className="col-span-2 max-lg:hidden">
+          <p className="font-medium text-lg leading-8 text-gray-500 text-center">
+            Status
+          </p>
+        </div>
+      </div>
+
+      {loading ? (
+        <p className="text-center text-gray-500">Memuat data...</p>
+      ) : orders.length === 0 ? (
+        <p className="text-center text-gray-500">
+          Tidak ada riwayat peminjaman.
+        </p>
+      ) : (
+        orders.map((order) => (
           <div
             key={order.id}
             className="box p-8 rounded-3xl bg-gray-100 grid grid-cols-10 mb-7 cursor-pointer transition-all duration-500 hover:bg-indigo-50 max-lg:max-w-xl max-lg:mx-auto"
@@ -149,8 +113,8 @@ export default function RiwayatPeminjamanPage() {
               )}
             </div>
           </div>
-        ))}
-      </div>
-    </>
+        ))
+      )}
+    </div>
   );
 }

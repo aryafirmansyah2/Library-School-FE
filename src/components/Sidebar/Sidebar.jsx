@@ -59,7 +59,7 @@ const Sidebar = () => {
           onClick={handleLogout}
           className="w-full bg-red-100 text-red-600 font-medium py-2 rounded-md hover:bg-red-200 transition"
         >
-          Logout
+          Keluar
         </button>
       </div>
     </div>

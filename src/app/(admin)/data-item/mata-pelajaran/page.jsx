@@ -80,13 +80,7 @@ const MataPelajaranPage = () => {
       <Toaster position="top-center" />
       <div className="flex flex-col gap-8 bg-white w-full p-10 rounded-xl border border-gray-200 ">
         <div className="">
-          <h1 className="text-3xl font-bold">
-            Selamat Datang di Digital Library!
-          </h1>
-          <p className="mt-4 max-w-[476px]">
-            Silahkan melihat koleksi buku, majalah, dan jurnal milik kami dan
-            kalian bisa pinjam{" "}
-          </p>
+          <h1 className="text-3xl font-bold">Koleksi Mata Pelajaran</h1>
         </div>
         <div className="flex items-center justify-between flex-wrap gap-4">
           <form
